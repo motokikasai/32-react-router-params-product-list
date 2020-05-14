@@ -3,11 +3,15 @@ import backHomeIcon from "../../pointing-left.png";
 import data from "../../data/products.json";
 
 export default class Products extends Component {
+  toHome = () => {
+    this.props.history.push("/");
+  };
+
   render() {
     return (
       <div className="products-list">
         <div className="list-header">
-          <button className="btn-back">
+          <button onClick={this.toHome} className="btn-back">
             <img
               src={backHomeIcon}
               alt="back-to-home-button"
@@ -23,7 +27,7 @@ export default class Products extends Component {
             <span className="table-item-price">Price</span>
           </li>
           {data.map((item) => {
-            console.log(item.id);
+            // console.log(item.id);
 
             return (
               <li key={item.id}>

@@ -4,17 +4,9 @@ import "./App.css";
 import logo from "./logo.svg";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Products from "./views/products";
+import Home from "./views/home";
 
 class App extends React.Component {
-  goHome = () => {
-    console.log("clicked...");
-
-    // this.props.history.push({
-    //   pathname: "/products",
-    //   search: "/",
-    // });
-  };
-
   render() {
     return (
       <div className="App">
@@ -24,16 +16,8 @@ class App extends React.Component {
           </div>
           <div className="container">
             <Switch>
-              <Route exact path="/">
-                <div className="home-content">
-                  <h1>Welcome, visitor!</h1>
-                  <button className="btn-go" onClick={this.goHome}>
-                    Go to Products
-                  </button>
-                </div>
-              </Route>
+              <Route exact path="/" component={Home}></Route>
               <Route path="/products" component={Products} />
-
               <Route>Error: 404 Not Found</Route>
             </Switch>
           </div>
