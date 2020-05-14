@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import backHomeIcon from "../../pointing-left.png";
 import data from "../../data/products.json";
+import { Link } from "react-router-dom";
 
 export default class Products extends Component {
   toHome = () => {
@@ -8,6 +9,7 @@ export default class Products extends Component {
   };
 
   render() {
+    console.log(this.props.match.id);
     return (
       <div className="products-list">
         <div className="list-header">
@@ -30,14 +32,18 @@ export default class Products extends Component {
             // console.log(item.id);
 
             return (
-              <li key={item.id}>
-                <span className="table-item-name">{item.name}</span>
-                <span className="table-item-desc">{item.shortDescription}</span>
-                <span className="table-item-price">{`${new Intl.NumberFormat(
-                  "de-DE",
-                  { style: "currency", currency: "EUR" }
-                ).format(item.price)}`}</span>
-              </li>
+              <Link to={item.id}>
+                <li key={item.id}>
+                  <span className="table-item-name">{item.name}</span>
+                  <span className="table-item-desc">
+                    {item.shortDescription}
+                  </span>
+                  <span className="table-item-price">{`${new Intl.NumberFormat(
+                    "de-DE",
+                    { style: "currency", currency: "EUR" }
+                  ).format(item.price)}`}</span>
+                </li>
+              </Link>
             );
           })}
         </ul>
