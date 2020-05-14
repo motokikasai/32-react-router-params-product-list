@@ -6,6 +6,15 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Products from "./views/products";
 
 class App extends React.Component {
+  goHome = () => {
+    console.log("clicked...");
+
+    // this.props.history.push({
+    //   pathname: "/products",
+    //   search: "/",
+    // });
+  };
+
   render() {
     return (
       <div className="App">
@@ -18,7 +27,9 @@ class App extends React.Component {
               <Route exact path="/">
                 <div className="home-content">
                   <h1>Welcome, visitor!</h1>
-                  <button className="go">Go to Products</button>
+                  <button className="btn-go" onClick={this.goHome}>
+                    Go to Products
+                  </button>
                 </div>
               </Route>
               <Route path="/products" component={Products} />
