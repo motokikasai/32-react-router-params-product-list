@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import data from "../../data/products.json";
+import { Link } from "react-router-dom";
 
 export default class Home extends Component {
   state = {
@@ -35,9 +36,18 @@ export default class Home extends Component {
         <ul className="cards">
           {this.state.arrFour.map((item) => {
             return (
-              <li className="card" key={item.id}>
-                {item.price}
-              </li>
+              <Link to={`/products/${item.id}`} key={item.id}>
+                <li className="card">
+                  {item.name}
+                  <div className="price-tag">{`${new Intl.NumberFormat(
+                    "de-DE",
+                    {
+                      style: "currency",
+                      currency: "EUR",
+                    }
+                  ).format(item.price)}`}</div>
+                </li>
+              </Link>
             );
           })}
         </ul>
