@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import data from "../../data/products.json";
 import { Link } from "react-router-dom";
+import beach from "../../beach.mp4";
 
 export default class Home extends Component {
   state = {
@@ -27,6 +28,11 @@ export default class Home extends Component {
   render() {
     return (
       <>
+        <div className="video-container">
+          <video autoPlay loop muted>
+            <source src={beach} type="video/mp4" />
+          </video>
+        </div>
         <div className="home-content">
           <h1>Welcome, visitor!</h1>
           <button className="btn-go" onClick={this.toProducts}>

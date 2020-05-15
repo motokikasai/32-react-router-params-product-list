@@ -9,11 +9,12 @@ a:hover {
 
 .header {
   position: fixed;
-  background: white;
+  z-index: 999;
+  background: rgba(255, 255, 255, 0.8);
   width: 100%;
   height: 60px;
   top: 0;
-  box-shadow: 0px 3px 10px rgb(231, 231, 231);
+  /* box-shadow: 0px 3px 10px rgb(231, 231, 231); */
   display: flex;
   align-items: center;
 }
@@ -22,6 +23,10 @@ a:hover {
   width: 80px;
 }
 
+/* .wrapper {
+  position: relative;
+} */
+
 .container {
   max-width: 960px;
   margin: 0 auto;
@@ -29,16 +34,26 @@ a:hover {
 }
 
 .home-content {
-  background: dodgerblue;
+  position: relative;
+  background: rgba(30, 143, 255, 0.5);
   display: flex;
   flex-direction: column;
   justify-content: center;
-
   height: 240px;
   color: white;
   border-radius: 4px;
   padding: 60px;
-  margin: 0 10px;
+  margin: 0px 10px;
+}
+
+.video-container {
+  position: fixed;
+  /* z-index: -999; */
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
 }
 
 .cards {
@@ -59,6 +74,7 @@ a:hover {
   font-size: 1.2rem;
   font-weight: 200;
   color: rgb(61, 61, 61);
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .price-tag {
