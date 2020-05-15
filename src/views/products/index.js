@@ -9,7 +9,6 @@ export default class Products extends Component {
   };
 
   render() {
-    console.log(this.props.match.id);
     return (
       <div className="products-list">
         <div className="list-header">
@@ -29,11 +28,9 @@ export default class Products extends Component {
             <span className="table-item-price">Price</span>
           </li>
           {data.map((item) => {
-            // console.log(item.id);
-
             return (
-              <Link to={item.id}>
-                <li key={item.id}>
+              <Link key={item.id} to={`/products/${item.id}`}>
+                <li>
                   <span className="table-item-name">{item.name}</span>
                   <span className="table-item-desc">
                     {item.shortDescription}
@@ -51,5 +48,3 @@ export default class Products extends Component {
     );
   }
 }
-
-// T0b1Faku1saW3bM31st3r
