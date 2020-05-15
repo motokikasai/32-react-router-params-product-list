@@ -12,17 +12,16 @@ export default class Item extends Component {
   };
 
   componentDidMount() {
-    const findOjb = data.find((item) => {
+    const objData = data.find((item) => {
       return item.id === this.props.match.params.id;
     });
 
     this.setState({
-      product: findOjb,
+      product: objData,
     });
   }
 
   render() {
-    console.log(this.state.product);
     return (
       <div className="item-detail">
         <div className="list-header">
@@ -35,6 +34,19 @@ export default class Item extends Component {
           </button>
           <h1 className="list-title">{this.state.product.name}</h1>
         </div>
+
+        <img
+          src={this.state.product.image}
+          alt="product"
+          className="product-image"
+        />
+        <div className="text-wrapper">{this.state.product.description}</div>
+        <p className="price">
+          {`${new Intl.NumberFormat("de-DE", {
+            style: "currency",
+            currency: "EUR",
+          }).format(this.state.product.price)}`}
+        </p>
       </div>
     );
   }
