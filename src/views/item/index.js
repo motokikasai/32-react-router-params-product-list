@@ -6,6 +6,8 @@ import data from "../../data/products.json";
 export default class Item extends Component {
   state = {
     product: {},
+    hidePrev: false,
+    hideNext: false,
   };
 
   toPrev = () => {
@@ -13,8 +15,6 @@ export default class Item extends Component {
   };
 
   componentDidMount() {
-    // console.log(this.props.history.goBack(-1));
-
     const objData = data.find((item) => {
       return item.id === this.props.match.params.id;
     });
@@ -29,6 +29,53 @@ export default class Item extends Component {
       });
     }
   }
+
+  nextHandler = () => {
+    if (data.indexOf(this.state.product) === data.length - 1) {
+      this.setState({
+        hideNext: true,
+      });
+    } else {
+      this.setState({
+        product: data[data.indexOf(this.state.product) + 1],
+        hidePrev: false,
+      });
+    }
+  };
+
+  prevHandler = () => {
+    if (data.indexOf(this.state.product) === 0) {
+      this.setState({
+        hidePrev: true,
+      });
+    } else {
+      this.setState({
+        product: data[data.indexOf(this.state.product) - 1],
+        hideNext: false,
+      });
+    }
+  };
+
+  clickHandler = (e) => {
+    // console.log(data.indexOf(this.state.product));
+    // if (
+    //   data.indexOf(this.state.product) === 0 ||
+    //   data.indexOf(this.state.product) === data.length - 0
+    // ) {
+    //   this.setState({
+    //     hide: true,
+    //   });
+    // }
+    // if (e.target.id === "next") {
+    //   this.setState({
+    //     product: data[data.indexOf(this.state.product) + 1],
+    //   });
+    // } else if (e.target.id === "prev") {
+    //   this.setState({
+    //     product: data[data.indexOf(this.state.product) - 1],
+    //   });
+    // }
+  };
 
   render() {
     return (
@@ -46,18 +93,38 @@ export default class Item extends Component {
               <h1 className="list-title">{this.state.product.name}</h1>
             </div>
 
-            <img
-              src={this.state.product.image}
-              alt="product"
-              className="product-image"
-            />
-            <div className="text-wrapper">{this.state.product.description}</div>
-            <p className="price">
-              {`${new Intl.NumberFormat("de-DE", {
-                style: "currency",
-                currency: "EUR",
-              }).format(this.state.product.price)}`}
-            </p>
+            <div className="main-content">
+              <img
+                src={this.state.product.image}
+                alt="product"
+                className="product-image"
+              />
+              <div className="text-wrapper">
+                {this.state.product.description}
+              </div>
+              <p className="price">
+                {`${new Intl.NumberFormat("de-DE", {
+                  style: "currency",
+                  currency: "EUR",
+                }).format(this.state.product.price)}`}
+              </p>
+            </div>
+            <div className="nav-back-forth">
+              <div className="cycler">
+                {!this.state.hidePrev && (
+                  <button onClick={this.prevHandler} id="prev" className="prev">
+                    &#8617; Prev
+                  </button>
+                )}
+              </div>
+              <div className="cycler">
+                {!this.state.hideNext && (
+                  <button onClick={this.nextHandler} id="next" className="next">
+                    Next &#8618;
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
         ) : (
           <Route>Error: 404 Not Found</Route>

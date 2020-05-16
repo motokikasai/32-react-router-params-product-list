@@ -20,18 +20,11 @@ export default class Home extends Component {
     this.setState({
       arrFour: arrOfFour,
     });
-    // console.log(arrOfFour);
-    // this.arrOfFour = arrOfFour;
   }
 
   render() {
     return (
       <>
-        {/* <div className="video-container">
-          <video autoPlay loop muted>
-            <source src={beach} type="video/mp4" />
-          </video>
-        </div> */}
         <div className="home-content">
           <h1>Welcome, visitor!</h1>
           <button className="btn-go" onClick={this.toProducts}>
