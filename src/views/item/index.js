@@ -9,10 +9,12 @@ export default class Item extends Component {
   };
 
   toPrev = () => {
-    this.props.history.push("/products");
+    this.props.history.goBack(-1);
   };
 
   componentDidMount() {
+    // console.log(this.props.history.goBack(-1));
+
     const objData = data.find((item) => {
       return item.id === this.props.match.params.id;
     });
