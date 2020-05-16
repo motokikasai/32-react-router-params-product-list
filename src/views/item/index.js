@@ -31,50 +31,33 @@ export default class Item extends Component {
   }
 
   nextHandler = () => {
-    if (data.indexOf(this.state.product) === data.length - 1) {
-      this.setState({
-        hideNext: true,
-      });
-    } else {
+    if (data.indexOf(this.state.product) !== data.length - 1) {
       this.setState({
         product: data[data.indexOf(this.state.product) + 1],
         hidePrev: false,
       });
     }
+
+    if (data.indexOf(this.state.product) === data.length - 2) {
+      this.setState({
+        hideNext: true,
+      });
+    }
   };
 
   prevHandler = () => {
-    if (data.indexOf(this.state.product) === 0) {
-      this.setState({
-        hidePrev: true,
-      });
-    } else {
+    if (data.indexOf(this.state.product) !== 0) {
       this.setState({
         product: data[data.indexOf(this.state.product) - 1],
         hideNext: false,
       });
     }
-  };
 
-  clickHandler = (e) => {
-    // console.log(data.indexOf(this.state.product));
-    // if (
-    //   data.indexOf(this.state.product) === 0 ||
-    //   data.indexOf(this.state.product) === data.length - 0
-    // ) {
-    //   this.setState({
-    //     hide: true,
-    //   });
-    // }
-    // if (e.target.id === "next") {
-    //   this.setState({
-    //     product: data[data.indexOf(this.state.product) + 1],
-    //   });
-    // } else if (e.target.id === "prev") {
-    //   this.setState({
-    //     product: data[data.indexOf(this.state.product) - 1],
-    //   });
-    // }
+    if (data.indexOf(this.state.product) === 1) {
+      this.setState({
+        hidePrev: true,
+      });
+    }
   };
 
   render() {
