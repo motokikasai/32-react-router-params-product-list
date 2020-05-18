@@ -8,8 +8,6 @@ export default class Item extends Component {
     product: {},
     next: "",
     previous: "",
-    hidePrev: false,
-    hideNext: false,
   };
 
   toPrev = () => {
@@ -85,6 +83,12 @@ export default class Item extends Component {
       <BrowserRouter>
         {this.state.product ? (
           <div className="item-detail">
+            <div className="sort-buttons">
+              <button className="sort reset">Reset</button>
+              <button className="sort asc">Sort</button>
+              <button className="sort desc">Sort</button>
+            </div>
+
             <div className="list-header">
               <button onClick={this.toPrev} className="btn-back">
                 <img

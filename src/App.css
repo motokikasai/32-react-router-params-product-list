@@ -200,3 +200,12 @@ button {
   font-weight: bold;
   color: dodgerblue;
 }
+
+/* --------------------
+ SORT BUTTONS
+----------------------*/
+
+.sort-buttons {
+  display: flex;
+  justify-content: center;
+}
