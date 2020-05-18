@@ -6,6 +6,8 @@ import data from "../../data/products.json";
 export default class Item extends Component {
   state = {
     product: {},
+    next: "",
+    previous: "",
     hidePrev: false,
     hideNext: false,
   };
@@ -15,49 +17,67 @@ export default class Item extends Component {
   };
 
   componentDidMount() {
-    const objData = data.find((item) => {
+    const currentProduct = data.find((item) => {
       return item.id === this.props.match.params.id;
     });
 
-    if (objData) {
-      this.setState({
-        product: objData,
+    const index = data.indexOf(currentProduct);
+
+    this.setState({
+      product: currentProduct,
+      nextId: data[index + 1] && data[index + 1].id,
+      previousId: data[index - 1] && data[index - 1].id,
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.id !== prevProps.match.params.id) {
+      const currentProduct = data.find((item) => {
+        return item.id === this.props.match.params.id;
       });
-    } else {
+
+      const index = data.indexOf(currentProduct);
+
       this.setState({
-        product: null,
+        product: currentProduct,
+        nextId: data[index + 1] && data[index + 1].id,
+        previousId: data[index - 1] && data[index - 1].id,
       });
     }
   }
 
   nextHandler = () => {
-    if (data.indexOf(this.state.product) !== data.length - 1) {
-      this.setState({
-        product: data[data.indexOf(this.state.product) + 1],
-        hidePrev: false,
-      });
-    }
-
-    if (data.indexOf(this.state.product) === data.length - 2) {
-      this.setState({
-        hideNext: true,
-      });
-    }
+    this.props.history.replace({
+      pathname: `/products/${this.state.nextId}`,
+    });
+    // if (data.indexOf(this.state.product) !== data.length - 1) {
+    //   this.setState({
+    //     product: data[data.indexOf(this.state.product) + 1],
+    //     hidePrev: false,
+    //   });
+    // }
+    // if (data.indexOf(this.state.product) === data.length - 2) {
+    //   this.setState({
+    //     hideNext: true,
+    //   });
+    // }
   };
 
   prevHandler = () => {
-    if (data.indexOf(this.state.product) !== 0) {
-      this.setState({
-        product: data[data.indexOf(this.state.product) - 1],
-        hideNext: false,
-      });
-    }
-
-    if (data.indexOf(this.state.product) === 1) {
-      this.setState({
-        hidePrev: true,
-      });
-    }
+    this.props.history.replace({
+      pathname: `/products/${this.state.previousId}`,
+    });
+    // if (data.indexOf(this.state.product) !== 0) {
+    //   this.setState({
+    //     product: data[data.indexOf(this.state.product) - 1],
+    //     hideNext: false,
+    //   });
+    // }
+    // if (data.indexOf(this.state.product) === 1) {
+    //   this.setState({
+    //     hidePrev: true,
+    //   });
+    // }
   };
 
   render() {
@@ -94,14 +114,14 @@ export default class Item extends Component {
             </div>
             <div className="nav-back-forth">
               <div className="cycler">
-                {!this.state.hidePrev && (
+                {this.state.previousId && (
                   <button onClick={this.prevHandler} id="prev" className="prev">
                     &#8617; Prev
                   </button>
                 )}
               </div>
               <div className="cycler">
-                {!this.state.hideNext && (
+                {this.state.nextId && (
                   <button onClick={this.nextHandler} id="next" className="next">
                     Next &#8618;
                   </button>
