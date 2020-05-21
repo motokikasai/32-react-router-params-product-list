@@ -215,10 +215,6 @@ button {
   justify-content: center;
 }
 
-/* .sort-arrow {
-  font-size: 1.2rem;
-} */
-
 .arrow-asc {
   display: inline-block;
   transform: rotate(-90deg);
@@ -242,4 +238,12 @@ button.reset {
   background: white;
   color: dodgerblue;
   border: 1px solid dodgerblue;
+}
+
+.arrow-up {
+  transform: rotate(-140deg);
+}
+
+.arrow-down {
+  transform: rotate(140deg);
 }

@@ -61,16 +61,6 @@ export default class Item extends Component {
       <BrowserRouter>
         {this.state.product ? (
           <div className="item-detail">
-            <div className="sort-buttons">
-              <button className="sort reset">Reset</button>
-              <button className="sort asc">
-                Sort <span className="sort-arrow arrow-asc">&#10141;</span>
-              </button>
-              <button className="sort desc">
-                Sort <span className="sort-arrow arrow-dsc">&#10141;</span>
-              </button>
-            </div>
-
             <div className="list-header">
               <button onClick={this.toPrev} className="btn-back">
                 <img
