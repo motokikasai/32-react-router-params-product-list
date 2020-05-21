@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import backHomeIcon from "../../pointing-left.png";
 import data from "../../data/products.json";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default class Products extends Component {
   state = {
     sortedArr: data,
+    queryParam: "",
   };
 
   toHome = () => {
@@ -17,6 +18,16 @@ export default class Products extends Component {
     this.props.history.replace({
       pathname: `/products?sort=${e.target.name}`,
     });
+
+    const queryParamOnClick = `?sort=${e.target.name}`;
+    console.log(this.props);
+
+    this.props.paramGetter(queryParamOnClick);
+
+    this.setState({
+      queryParam: queryParamOnClick,
+    });
+
     // if (e.target.name === "reset") {
     //   this.setState({
     //     sortedArr: data,
@@ -40,7 +51,6 @@ export default class Products extends Component {
 
   render() {
     return (
-      // <BrowserRouter>
       <div className="products-list">
         <div className="sort-buttons">
           <button
@@ -92,7 +102,6 @@ export default class Products extends Component {
           })}
         </ul>
       </div>
-      // </BrowserRouter>
     );
   }
 }
