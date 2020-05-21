@@ -10,7 +10,7 @@ a:hover {
 .header {
   position: fixed;
   z-index: 999;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.9);
   width: 100%;
   height: 60px;
   top: 0;
@@ -201,6 +201,11 @@ button {
   color: dodgerblue;
 }
 
+.arrow-left {
+  display: inline-block;
+  transform: rotate(180deg);
+}
+
 /* --------------------
  SORT BUTTONS
 ----------------------*/
@@ -208,4 +213,33 @@ button {
 .sort-buttons {
   display: flex;
   justify-content: center;
+}
+
+/* .sort-arrow {
+  font-size: 1.2rem;
+} */
+
+.arrow-asc {
+  display: inline-block;
+  transform: rotate(-90deg);
+}
+
+.arrow-dsc {
+  display: inline-block;
+  transform: rotate(90deg);
+}
+
+button.sort {
+  background: dodgerblue;
+  font-size: 1.1rem;
+  color: white;
+  padding: 10px 46px;
+  margin: 4px;
+  border-radius: 4px;
+}
+
+button.reset {
+  background: white;
+  color: dodgerblue;
+  border: 1px solid dodgerblue;
 }

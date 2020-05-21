@@ -11,7 +11,7 @@ export default class Item extends Component {
   };
 
   toPrev = () => {
-    this.props.history.goBack(-1);
+    this.props.history.goBack();
   };
 
   componentDidMount() {
@@ -48,34 +48,12 @@ export default class Item extends Component {
     this.props.history.replace({
       pathname: `/products/${this.state.nextId}`,
     });
-    // if (data.indexOf(this.state.product) !== data.length - 1) {
-    //   this.setState({
-    //     product: data[data.indexOf(this.state.product) + 1],
-    //     hidePrev: false,
-    //   });
-    // }
-    // if (data.indexOf(this.state.product) === data.length - 2) {
-    //   this.setState({
-    //     hideNext: true,
-    //   });
-    // }
   };
 
   prevHandler = () => {
     this.props.history.replace({
       pathname: `/products/${this.state.previousId}`,
     });
-    // if (data.indexOf(this.state.product) !== 0) {
-    //   this.setState({
-    //     product: data[data.indexOf(this.state.product) - 1],
-    //     hideNext: false,
-    //   });
-    // }
-    // if (data.indexOf(this.state.product) === 1) {
-    //   this.setState({
-    //     hidePrev: true,
-    //   });
-    // }
   };
 
   render() {
@@ -85,8 +63,12 @@ export default class Item extends Component {
           <div className="item-detail">
             <div className="sort-buttons">
               <button className="sort reset">Reset</button>
-              <button className="sort asc">Sort</button>
-              <button className="sort desc">Sort</button>
+              <button className="sort asc">
+                Sort <span className="sort-arrow arrow-asc">&#10141;</span>
+              </button>
+              <button className="sort desc">
+                Sort <span className="sort-arrow arrow-dsc">&#10141;</span>
+              </button>
             </div>
 
             <div className="list-header">
@@ -120,14 +102,14 @@ export default class Item extends Component {
               <div className="cycler">
                 {this.state.previousId && (
                   <button onClick={this.prevHandler} id="prev" className="prev">
-                    &#8617; Prev
+                    <span className="arrow-left">&#10132;</span> Prev
                   </button>
                 )}
               </div>
               <div className="cycler">
                 {this.state.nextId && (
                   <button onClick={this.nextHandler} id="next" className="next">
-                    Next &#8618;
+                    Next &#10132;
                   </button>
                 )}
               </div>
