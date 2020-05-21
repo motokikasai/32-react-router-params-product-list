@@ -92,14 +92,14 @@ export default class Item extends Component {
               <div className="cycler">
                 {this.state.previousId && (
                   <button onClick={this.prevHandler} id="prev" className="prev">
-                    <span className="arrow-left">&#10132;</span> Prev
+                    &#8656; Prev
                   </button>
                 )}
               </div>
               <div className="cycler">
                 {this.state.nextId && (
                   <button onClick={this.nextHandler} id="next" className="next">
-                    Next &#10132;
+                    Next &#8658;
                   </button>
                 )}
               </div>
