@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 export default class Home extends Component {
   state = {
     arrFour: [],
+    dataToSortCards: [...data],
   };
 
   toProducts = () => {
@@ -12,7 +13,9 @@ export default class Home extends Component {
   };
 
   componentDidMount() {
-    const arrSorted = data.sort((a, b) => {
+    console.log(this.state.dataToSortCards);
+
+    const arrSorted = this.state.dataToSortCards.sort((a, b) => {
       return b.price - a.price;
     });
 

@@ -5,8 +5,7 @@ import { Link } from "react-router-dom";
 
 export default class Products extends Component {
   state = {
-    sortedArr: data,
-    queryParam: "",
+    param: "",
   };
 
   toHome = () => {
@@ -15,51 +14,44 @@ export default class Products extends Component {
 
   // HANDLE SORT
   sortHandler = (e) => {
-    this.props.history.replace({
-      pathname: `/products?sort=${e.target.name}`,
-    });
-
-    const queryParamOnClick = `?sort=${e.target.name}`;
-    console.log(this.props);
-
-    this.props.paramGetter(queryParamOnClick);
+    const searchParams = `?sort=${e.target.name}`;
 
     this.setState({
-      queryParam: queryParamOnClick,
+      param: searchParams,
     });
 
-    // if (e.target.name === "reset") {
-    //   this.setState({
-    //     sortedArr: data,
-    //   });
-    // } else if (e.target.name === "asc") {
-    //   const ascList = data.sort((a, b) => {
-    //     return a.price - b.price;
-    //   });
-    //   this.setState({
-    //     sortedArr: ascList,
-    //   });
-    // } else if (e.target.name === "dsc") {
-    //   const dscList = data.sort((a, b) => {
-    //     return b.price - a.price;
-    //   });
-    //   this.setState({
-    //     sortedArr: dscList,
-    //   });
-    // }
+    // console.log(this.state.param);
   };
+
+  componentDidUpdate(prevState) {
+    if (prevState.location.pathname !== `/products${this.state.param}`) {
+      this.props.history.replace({
+        pathname: `/products${this.state.param}`,
+      });
+    }
+
+    this.props.paramGetter(this.state.param);
+  }
+
+  // resetHandler = () => {
+  //   this.props.history.replace({
+  //     pathname: "/products",
+  //   });
+  // };
 
   render() {
     return (
       <div className="products-list">
         <div className="sort-buttons">
-          <button
-            name="reset"
-            onClick={this.sortHandler}
-            className="sort reset"
-          >
-            Reset
-          </button>
+          <Link to="/products">
+            <button
+              name="reset"
+              // onClick={this.resetHandler}
+              className="sort reset"
+            >
+              Reset
+            </button>
+          </Link>
           <button name="asc" onClick={this.sortHandler} className="sort asc">
             Sort &#8657;
           </button>
@@ -78,6 +70,7 @@ export default class Products extends Component {
           </button>
           <h1 className="list-title">Products List</h1>
         </div>
+
         <ul className="list-items">
           <li className="list-categories">
             <span className="table-item-name">Name</span>

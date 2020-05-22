@@ -1,5 +1,4 @@
 import React from "react";
-// import logo from "./logo.svg";
 import "./App.css";
 import logo from "./logo.svg";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
@@ -10,12 +9,14 @@ import Sort from "./views/sort";
 
 class App extends React.Component {
   state = {
-    queryParam: "",
+    paramStr: "",
   };
 
-  getSortQueryParam = (param) => {
+  getParamStr = (param) => {
+    console.log("Data from Sort", param);
+
     this.setState({
-      queryParam: param,
+      paramStr: param,
     });
   };
 
@@ -30,19 +31,28 @@ class App extends React.Component {
           </div>
           <div className="container">
             <Switch>
-              <Route exact path="/" component={Home}></Route>
+              <Route path="/products/:id" component={Item} />
+              {/* <Route path="/products/" component={Products} /> */}
+              <Route exact path="/" component={Home} />
               <Route
                 exact
                 path="/products/"
                 render={(props) => (
-                  <Products {...props} paramGetter={this.getSortQueryParam} />
+                  <Products {...props} paramGetter={this.getParamStr} />
                 )}
-                paramGetter={this.getSortQueryParam}
+                // paramGetter={this.getParamStr}
               />
-              <Route path="/products/:id" component={Item} />
-              <Route
+
+              {/* <Route
                 path={`/products${this.state.queryParam}`}
                 component={Sort}
+              /> */}
+              <Route
+                path={`/products${this.state.paramStr}`}
+                // component={Sort}
+                render={(props) => (
+                  <Sort {...props} paramGetter={this.getParamStr} />
+                )}
               />
               <Route>Error: 404 Not Found</Route>
             </Switch>
