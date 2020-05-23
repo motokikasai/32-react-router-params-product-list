@@ -13,7 +13,7 @@ export default class Home extends Component {
   };
 
   componentDidMount() {
-    console.log(this.state.dataToSortCards);
+    // console.log(this.state.dataToSortCards);
 
     const arrSorted = this.state.dataToSortCards.sort((a, b) => {
       return b.price - a.price;

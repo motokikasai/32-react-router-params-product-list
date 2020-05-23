@@ -6,8 +6,8 @@ import data from "../../data/products.json";
 export default class Item extends Component {
   state = {
     product: {},
-    next: "",
-    previous: "",
+    nextId: "",
+    previousId: "",
   };
 
   toPrev = () => {
@@ -15,6 +15,8 @@ export default class Item extends Component {
   };
 
   componentDidMount() {
+    console.log(this.props.match.params);
+
     const currentProduct = data.find((item) => {
       return item.id === this.props.match.params.id;
     });
@@ -106,8 +108,8 @@ export default class Item extends Component {
             </div>
           </div>
         ) : (
-          <Route>Error: 404 Not Found</Route>
-        )}
+            <Route>Error: 404 Not Found</Route>
+          )}
       </BrowserRouter>
     );
   }

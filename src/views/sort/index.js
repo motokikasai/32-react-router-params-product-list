@@ -6,7 +6,9 @@ import { Link } from "react-router-dom";
 export default class Products extends Component {
   state = {
     sortedData: [],
-    param: "",
+    ascArray: [],
+    dscArray: [],
+    queryParam: "",
   };
 
   toHome = () => {
@@ -14,29 +16,20 @@ export default class Products extends Component {
   };
 
   // HANDLE SORT
-  // sortHandler = (e) => {
-  //   this.props.history.replace({
-  //     pathname: `/products?sort=${e.target.name}`,
-  //   });
-
-  //   const queryParamOnClick = `?sort=${e.target.name}`;
-  //   console.log(queryParamOnClick);
-
-  //   this.setState({
-  //     queryParam: queryParamOnClick,
-  //   });
-  // };
-
   componentDidMount() {
-    console.log(this.props.location.pathname);
+    // console.log(this.props.location.pathname);
 
     if (this.props.location.pathname === "/products?sort=asc") {
+      const sortByAsc = data.sort((a, b) => a.price - b.price)
       this.setState({
-        sortedData: data.sort((a, b) => a.price - b.price),
+        sortedData: sortByAsc,
+        ascArray: sortByAsc,
       });
     } else if (this.props.location.pathname === "/products?sort=dsc") {
+      const sortByDsc = data.sort((a, b) => b.price - a.price)
       this.setState({
-        sortedData: data.sort((a, b) => b.price - a.price),
+        sortedData: sortByDsc,
+        dscArray: sortByDsc
       });
     }
   }
@@ -44,18 +37,29 @@ export default class Products extends Component {
   sortHandler = (e) => {
     const searchParams = `?sort=${e.target.name}`;
 
-    this.setState({
-      param: searchParams,
+    this.props.history.replace({
+      pathname: `/products?sort=${e.target.name}`,
     });
 
-    // console.log(this.state.param);
+    this.setState({
+      queryParam: searchParams,
+    });
   };
 
   componentDidUpdate(prevState) {
-    if (prevState.location.pathname !== `/products${this.state.param}`) {
-      this.props.history.replace({
-        pathname: `/products${this.state.param}`,
-      });
+    console.log(prevState.location.pathname);
+    console.log(this.state.queryParam);
+
+    if (prevState.location.pathname !== `/products${this.state.queryParam}`) {
+
+      // if (this.props.location.pathname === "/products?sort=asc") {
+      //   const sortByAsc = data.sort((a, b) => a.price - b.price)
+      //   this.setState({
+      //     sortedData: sortByAsc,
+      //     ascArray: sortByAsc,
+      //   });
+      // }
+
     }
 
     this.props.paramGetter(this.state.param);
@@ -71,15 +75,13 @@ export default class Products extends Component {
     return (
       <div className="products-list">
         <div className="sort-buttons">
-          <Link to="/products">
-            <button
-              name="reset"
-              // onClick={this.resetHandler}
-              className="sort reset"
-            >
-              Reset
-            </button>
-          </Link>
+          <button
+            name="reset"
+            // onClick={this.resetHandler}
+            className="sort reset"
+          >
+            Reset
+          </button>
           <button name="asc" onClick={this.sortHandler} className="sort asc">
             Sort &#8657;
           </button>

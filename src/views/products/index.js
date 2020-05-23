@@ -4,54 +4,68 @@ import data from "../../data/products.json";
 import { Link } from "react-router-dom";
 
 export default class Products extends Component {
-  state = {
-    param: "",
-  };
+  // state = {
+  //   param: "",
+  //   asc: [],
+  //   dsc: []
+  // };
 
   toHome = () => {
     this.props.history.push("/");
   };
 
-  // HANDLE SORT
-  sortHandler = (e) => {
-    const searchParams = `?sort=${e.target.name}`;
+  // componentDidMount() {
+  //   const copyForAsc = [...data]
+  //   const copyForDsc = [...data]
 
-    this.setState({
-      param: searchParams,
+  //   const ascData = copyForAsc.sort((a, b) => a.price - b.price)
+  //   const dscData = copyForDsc.sort((a, b) => b.price - a.price)
+  //   this.setState({
+  //     asc: ascData,
+  //     dsc: dscData
+  //   })
+  // }
+
+  // HANDLE SORT
+  // sortHandler = (e) => {
+  //   const searchParams = `?sort=${e.target.name}`;
+
+  //   this.setState({
+  //     param: searchParams,
+  //   });
+
+  //   // console.log(this.state.param);
+  // };
+
+  // componentDidUpdate(prevState) {
+  //   if (prevState.location.pathname !== `/products${this.state.param}`) {
+  //     this.props.history.replace({
+  //       pathname: `/products${this.state.param}`,
+  //     });
+  //   }
+
+  //   this.props.paramGetter(this.state.param);
+  // }
+
+  sortHandler = (e) => {
+    this.props.history.replace({
+      pathname: `/products?sort=${e.target.name}`,
     });
 
-    // console.log(this.state.param);
-  };
-
-  componentDidUpdate(prevState) {
-    if (prevState.location.pathname !== `/products${this.state.param}`) {
-      this.props.history.replace({
-        pathname: `/products${this.state.param}`,
-      });
-    }
-
-    this.props.paramGetter(this.state.param);
+    this.props.paramGetter(`?sort=${e.target.name}`);
   }
-
-  // resetHandler = () => {
-  //   this.props.history.replace({
-  //     pathname: "/products",
-  //   });
-  // };
 
   render() {
     return (
       <div className="products-list">
         <div className="sort-buttons">
-          <Link to="/products">
-            <button
-              name="reset"
-              // onClick={this.resetHandler}
-              className="sort reset"
-            >
-              Reset
-            </button>
-          </Link>
+          <button
+            name="reset"
+            // onClick={this.sortHandler}
+            className="sort reset"
+          >
+            Reset
+          </button>
           <button name="asc" onClick={this.sortHandler} className="sort asc">
             Sort &#8657;
           </button>
