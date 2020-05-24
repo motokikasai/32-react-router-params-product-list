@@ -215,16 +215,6 @@ button {
   justify-content: center;
 }
 
-/* .arrow-asc {
-  display: inline-block;
-  transform: rotate(-90deg);
-}
-
-.arrow-dsc {
-  display: inline-block;
-  transform: rotate(90deg);
-} */
-
 button.sort {
   background: dodgerblue;
   font-size: 1.1rem;
@@ -240,10 +230,23 @@ button.reset {
   border: 1px solid dodgerblue;
 }
 
-/* .arrow-up {
-  transform: rotate(-140deg);
+/* ---------------------------
+* FILTER
+-----------------------------/*/
+
+.filter {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 40px 0;
 }
 
-.arrow-down {
-  transform: rotate(140deg);
-} */
+.filter-header {
+  font-size: 1.2rem;
+}
+
+.filter form input {
+  padding: 10px;
+  min-width: 540px;
+  border: 1px solid dodgerblue;
+}

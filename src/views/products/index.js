@@ -2,8 +2,13 @@ import React, { Component } from "react";
 import backHomeIcon from "../../pointing-left.png";
 import data from "../../data/products.json";
 import { Link } from "react-router-dom";
+// import Filter from "../filter"
 
 export default class Products extends Component {
+  state = {
+    sortedData: data,
+    filterInput: ''
+  }
 
   toHome = () => {
     this.props.history.push("/");
@@ -15,9 +20,39 @@ export default class Products extends Component {
     });
   }
 
+  submitHandler = (e) => {
+    e.preventDefault()
+  }
+
+  filterHandler = (e) => {
+    console.log(e.target.value);
+    this.setState({
+      filterInput: e.target.value
+    })
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.filterInput !== this.state.filterInput) {
+      console.log("time to update!!!!");
+
+      const updatedDataArray = this.state.sortedData.filter(item => {
+        console.log(item.name);
+
+        return item.name.includes(this.state.filterInput)
+      })
+      console.log(updatedDataArray);
+
+      this.setState({
+        sortedData: updatedDataArray
+      })
+    }
+  }
+
+
   render() {
     return (
       <div className="products-list">
+        {/* Sort buttons */}
         <div className="sort-buttons">
           <button
             name="reset"
@@ -32,6 +67,14 @@ export default class Products extends Component {
           <button name="dsc" onClick={this.sortHandler} className="sort desc">
             Sort &#8659;
           </button>
+        </div>
+
+        {/* Filter input */}
+        <div className="filter">
+          <p className="filter-header">Filter by name or description</p>
+          <form onSubmit={this.submitHandler}>
+            <input type="text" onChange={this.filterHandler} />
+          </form>
         </div>
 
         <div className="list-header">
@@ -51,7 +94,7 @@ export default class Products extends Component {
             <span className="table-item-desc">Description</span>
             <span className="table-item-price">Price</span>
           </li>
-          {data.map((item) => {
+          {this.state.sortedData.map((item) => {
             return (
               <Link key={item.id} to={`/products/${item.id}`}>
                 <li>

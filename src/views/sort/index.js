@@ -15,7 +15,7 @@ export default class Products extends Component {
 
   // HANDLE SORT
   componentDidMount() {
-    console.log(this.state.defaultData);
+    // console.log(this.state.defaultData);
 
     if (this.props.location.pathname === "/products?sort=asc") {
       const sortByAsc = this.state.defaultData.sort((a, b) => a.price - b.price)
