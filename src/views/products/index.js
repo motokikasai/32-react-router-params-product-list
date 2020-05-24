@@ -4,55 +4,28 @@ import data from "../../data/products.json";
 import { Link } from "react-router-dom";
 
 export default class Products extends Component {
-  // state = {
-  //   param: "",
-  //   asc: [],
-  //   dsc: []
-  // };
+  state = {
+    data: data,
+    defaultData: [...data]
+  }
 
   toHome = () => {
     this.props.history.push("/");
   };
 
-  // componentDidMount() {
-  //   const copyForAsc = [...data]
-  //   const copyForDsc = [...data]
+  componentDidMount() {
+    console.log(this.state.defaultData);
 
-  //   const ascData = copyForAsc.sort((a, b) => a.price - b.price)
-  //   const dscData = copyForDsc.sort((a, b) => b.price - a.price)
-  //   this.setState({
-  //     asc: ascData,
-  //     dsc: dscData
-  //   })
-  // }
-
-  // HANDLE SORT
-  // sortHandler = (e) => {
-  //   const searchParams = `?sort=${e.target.name}`;
-
-  //   this.setState({
-  //     param: searchParams,
-  //   });
-
-  //   // console.log(this.state.param);
-  // };
-
-  // componentDidUpdate(prevState) {
-  //   if (prevState.location.pathname !== `/products${this.state.param}`) {
-  //     this.props.history.replace({
-  //       pathname: `/products${this.state.param}`,
-  //     });
-  //   }
-
-  //   this.props.paramGetter(this.state.param);
-  // }
+    this.setState({
+      data: this.state.defaultData
+    })
+  }
 
   sortHandler = (e) => {
     this.props.history.replace({
       pathname: `/products?sort=${e.target.name}`,
     });
 
-    this.props.paramGetter(`?sort=${e.target.name}`);
   }
 
   render() {
@@ -91,7 +64,7 @@ export default class Products extends Component {
             <span className="table-item-desc">Description</span>
             <span className="table-item-price">Price</span>
           </li>
-          {data.map((item) => {
+          {this.state.data.map((item) => {
             return (
               <Link key={item.id} to={`/products/${item.id}`}>
                 <li>

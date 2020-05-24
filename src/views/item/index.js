@@ -15,8 +15,6 @@ export default class Item extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props.match.params);
-
     const currentProduct = data.find((item) => {
       return item.id === this.props.match.params.id;
     });

@@ -6,9 +6,7 @@ import { Link } from "react-router-dom";
 export default class Products extends Component {
   state = {
     sortedData: [],
-    ascArray: [],
-    dscArray: [],
-    queryParam: "",
+    defaultData: [...data],
   };
 
   toHome = () => {
@@ -17,19 +15,17 @@ export default class Products extends Component {
 
   // HANDLE SORT
   componentDidMount() {
-    // console.log(this.props.location.pathname);
+    console.log(this.state.defaultData);
 
     if (this.props.location.pathname === "/products?sort=asc") {
       const sortByAsc = data.sort((a, b) => a.price - b.price)
       this.setState({
         sortedData: sortByAsc,
-        ascArray: sortByAsc,
       });
     } else if (this.props.location.pathname === "/products?sort=dsc") {
       const sortByDsc = data.sort((a, b) => b.price - a.price)
       this.setState({
         sortedData: sortByDsc,
-        dscArray: sortByDsc
       });
     }
   }
@@ -41,35 +37,74 @@ export default class Products extends Component {
       pathname: `/products?sort=${e.target.name}`,
     });
 
-    this.setState({
-      queryParam: searchParams,
-    });
-  };
+    if (searchParams === "?sort=asc") {
+      const sortByAsc = data.sort((a, b) => a.price - b.price)
+      this.setState({
+        sortedData: sortByAsc,
+      });
+    } else if (searchParams === "?sort=dsc") {
+      const sortByAsc = data.sort((a, b) => b.price - a.price)
+      this.setState({
+        sortedData: sortByAsc,
+      });
+    } else if (searchParams === "?sort=reset") {
+      // this.setState({
+      //   sortedData: this.state.defaultData,
+      // });
 
-  componentDidUpdate(prevState) {
-    console.log(prevState.location.pathname);
-    console.log(this.state.queryParam);
-
-    if (prevState.location.pathname !== `/products${this.state.queryParam}`) {
-
-      // if (this.props.location.pathname === "/products?sort=asc") {
-      //   const sortByAsc = data.sort((a, b) => a.price - b.price)
-      //   this.setState({
-      //     sortedData: sortByAsc,
-      //     ascArray: sortByAsc,
-      //   });
-      // }
-
+      this.props.history.replace({
+        pathname: "/products",
+      });
     }
 
-    this.props.paramGetter(this.state.param);
-  }
+  };
+
+  // componentDidUpdate(prevState) {
+  //   console.log(prevState.location.pathname);
+  //   console.log(this.state.queryParam);
+  //   console.log(this.props.location.search);
+
+
+  // if (prevState.location.pathname !== `/products${this.state.queryParam}`) {
+  //   const sortByDsc = data.sort((a, b) => b.price - a.price)
+  //   this.setState({
+  //     sortedData: sortByDsc,
+  //   });
+  // }
+
+  // if (prevState.location.pathname !== "/products?sort=dsc") {
+  //   const sortByAsc = data.sort((a, b) => a.price - b.price)
+  //   this.setState({
+  //     sortedData: sortByAsc,
+  //   });
+  // }
+
+
+
+  // if (this.props.location.pathname === "/products?sort=asc") {
+  //   const sortByAsc = data.sort((a, b) => a.price - b.price)
+  //   this.setState({
+  //     sortedData: sortByAsc,
+  //     ascArray: sortByAsc,
+  //   });
+  // }
+
+
+
+  // this.props.paramGetter(this.state.param);
+  // }
 
   // resetHandler = () => {
-  //   this.props.history.replace({
-  //     pathname: "/products",
-  //   });
+  //   // this.setState({
+  //   //   sortedData: this.state.defaultData
+  //   // })
+
+  // this.props.history.replace({
+  //   pathname: "/products",
+  // });
+
   // };
+
 
   render() {
     return (
@@ -77,7 +112,7 @@ export default class Products extends Component {
         <div className="sort-buttons">
           <button
             name="reset"
-            // onClick={this.resetHandler}
+            onClick={this.sortHandler}
             className="sort reset"
           >
             Reset

@@ -8,17 +8,17 @@ import Item from "./views/item";
 import Sort from "./views/sort";
 
 class App extends React.Component {
-  state = {
-    queryParam: "",
-  };
+  // state = {
+  //   queryParam: "",
+  // };
 
-  getParamStr = (param) => {
-    console.log("Data from Sort", param);
+  // getParamStr = (param) => {
+  //   console.log("Data from Sort", param);
 
-    this.setState({
-      queryParam: param,
-    });
-  };
+  //   this.setState({
+  //     queryParam: param,
+  //   });
+  // };
 
   render() {
     return (
@@ -33,16 +33,20 @@ class App extends React.Component {
             <Switch>
               <Route path="/products/:id" component={Item} />
               <Route exact path="/" component={Home} />
-              <Route
+              {/* <Route
                 exact
                 path="/products/"
                 render={(props) => (
                   <Products {...props} paramGetter={this.getParamStr} />
                 )}
               />
-              <Route path={`/products${this.state.queryParam}`} component={Sort} />
+              <Route path={`/products${this.state.queryParam}`} component={Sort} /> */}
 
-              {/* <Route path="/products/" component={Products} /> */}
+              <Route exact path="/products/" component={Products} />
+
+              <Route path="/products?sort=asc" component={Sort} />
+              <Route path="/products?sort=dsc" component={Sort} />
+              <Route path="/products?sort=reset" component={Sort} />
               <Route>Error: 404 Not Found</Route>
             </Switch>
           </div>
