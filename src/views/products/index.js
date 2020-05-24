@@ -4,28 +4,15 @@ import data from "../../data/products.json";
 import { Link } from "react-router-dom";
 
 export default class Products extends Component {
-  state = {
-    data: data,
-    defaultData: [...data]
-  }
 
   toHome = () => {
     this.props.history.push("/");
   };
 
-  componentDidMount() {
-    console.log(this.state.defaultData);
-
-    this.setState({
-      data: this.state.defaultData
-    })
-  }
-
   sortHandler = (e) => {
     this.props.history.replace({
       pathname: `/products?sort=${e.target.name}`,
     });
-
   }
 
   render() {
@@ -64,7 +51,7 @@ export default class Products extends Component {
             <span className="table-item-desc">Description</span>
             <span className="table-item-price">Price</span>
           </li>
-          {this.state.data.map((item) => {
+          {data.map((item) => {
             return (
               <Link key={item.id} to={`/products/${item.id}`}>
                 <li>

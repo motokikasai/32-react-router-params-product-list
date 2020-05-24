@@ -18,12 +18,12 @@ export default class Products extends Component {
     console.log(this.state.defaultData);
 
     if (this.props.location.pathname === "/products?sort=asc") {
-      const sortByAsc = data.sort((a, b) => a.price - b.price)
+      const sortByAsc = this.state.defaultData.sort((a, b) => a.price - b.price)
       this.setState({
         sortedData: sortByAsc,
       });
     } else if (this.props.location.pathname === "/products?sort=dsc") {
-      const sortByDsc = data.sort((a, b) => b.price - a.price)
+      const sortByDsc = this.state.defaultData.sort((a, b) => b.price - a.price)
       this.setState({
         sortedData: sortByDsc,
       });
@@ -38,12 +38,12 @@ export default class Products extends Component {
     });
 
     if (searchParams === "?sort=asc") {
-      const sortByAsc = data.sort((a, b) => a.price - b.price)
+      const sortByAsc = this.state.defaultData.sort((a, b) => a.price - b.price)
       this.setState({
         sortedData: sortByAsc,
       });
     } else if (searchParams === "?sort=dsc") {
-      const sortByAsc = data.sort((a, b) => b.price - a.price)
+      const sortByAsc = this.state.defaultData.sort((a, b) => b.price - a.price)
       this.setState({
         sortedData: sortByAsc,
       });
@@ -58,53 +58,6 @@ export default class Products extends Component {
     }
 
   };
-
-  // componentDidUpdate(prevState) {
-  //   console.log(prevState.location.pathname);
-  //   console.log(this.state.queryParam);
-  //   console.log(this.props.location.search);
-
-
-  // if (prevState.location.pathname !== `/products${this.state.queryParam}`) {
-  //   const sortByDsc = data.sort((a, b) => b.price - a.price)
-  //   this.setState({
-  //     sortedData: sortByDsc,
-  //   });
-  // }
-
-  // if (prevState.location.pathname !== "/products?sort=dsc") {
-  //   const sortByAsc = data.sort((a, b) => a.price - b.price)
-  //   this.setState({
-  //     sortedData: sortByAsc,
-  //   });
-  // }
-
-
-
-  // if (this.props.location.pathname === "/products?sort=asc") {
-  //   const sortByAsc = data.sort((a, b) => a.price - b.price)
-  //   this.setState({
-  //     sortedData: sortByAsc,
-  //     ascArray: sortByAsc,
-  //   });
-  // }
-
-
-
-  // this.props.paramGetter(this.state.param);
-  // }
-
-  // resetHandler = () => {
-  //   // this.setState({
-  //   //   sortedData: this.state.defaultData
-  //   // })
-
-  // this.props.history.replace({
-  //   pathname: "/products",
-  // });
-
-  // };
-
 
   render() {
     return (
