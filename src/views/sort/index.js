@@ -7,6 +7,7 @@ export default class Products extends Component {
   state = {
     sortedData: [],
     defaultData: [...data],
+    filterInput: ''
   };
 
   toHome = () => {
@@ -41,11 +42,13 @@ export default class Products extends Component {
       const sortByAsc = this.state.defaultData.sort((a, b) => a.price - b.price)
       this.setState({
         sortedData: sortByAsc,
+        filterInput: ''
       });
     } else if (searchParams === "?sort=dsc") {
       const sortByAsc = this.state.defaultData.sort((a, b) => b.price - a.price)
       this.setState({
         sortedData: sortByAsc,
+        filterInput: ''
       });
     } else if (searchParams === "?sort=reset") {
       // this.setState({
@@ -54,14 +57,39 @@ export default class Products extends Component {
 
       this.props.history.replace({
         pathname: "/products",
+        filterInput: ''
       });
     }
-
   };
+
+  filterHandler = (e) => {
+    this.setState({
+      filterInput: e.target.value
+    })
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.filterInput !== this.state.filterInput) {
+      // console.log("time to update!!!!");
+
+      const updatedDataArray = this.state.defaultData.filter(item => {
+        // console.log(item.name);
+
+        return item.name.toLowerCase().includes(this.state.filterInput)
+      })
+      console.log(updatedDataArray);
+
+      this.setState({
+        sortedData: updatedDataArray
+      })
+    }
+  }
 
   render() {
     return (
       <div className="products-list">
+
+        {/*  Sort buttons */}
         <div className="sort-buttons">
           <button
             name="reset"
@@ -76,6 +104,14 @@ export default class Products extends Component {
           <button name="dsc" onClick={this.sortHandler} className="sort desc">
             Sort &#8659;
           </button>
+        </div>
+
+        {/* Filter input */}
+        <div className="filter">
+          <p className="filter-header">Filter by name or description</p>
+          <form onSubmit={this.submitHandler}>
+            <input type="text" onChange={this.filterHandler} value={this.state.filterInput} />
+          </form>
         </div>
 
         <div className="list-header">

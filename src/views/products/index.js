@@ -25,7 +25,6 @@ export default class Products extends Component {
   }
 
   filterHandler = (e) => {
-    console.log(e.target.value);
     this.setState({
       filterInput: e.target.value
     })
@@ -33,12 +32,12 @@ export default class Products extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.filterInput !== this.state.filterInput) {
-      console.log("time to update!!!!");
+      // console.log("time to update!!!!");
 
-      const updatedDataArray = this.state.sortedData.filter(item => {
-        console.log(item.name);
+      const updatedDataArray = data.filter(item => {
+        // console.log(item.name);
 
-        return item.name.includes(this.state.filterInput)
+        return item.name.toLowerCase().includes(this.state.filterInput)
       })
       console.log(updatedDataArray);
 
